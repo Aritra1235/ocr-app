@@ -9,6 +9,8 @@ const cors = require('cors'); // Add this line
 const app = express();
 const port = 3000;
 
+let clients = new Set(); // Add this line
+
 // Enable CORS
 app.use(cors()); // Add this line before your routes
 
@@ -30,6 +32,17 @@ if (!fs.existsSync('uploads')) {
   fs.mkdirSync('uploads');
 }
 
+// Add SSE endpoint
+app.get('/progress', (req, res) => {
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+
+  clients.add(res);
+
+  req.on('close', () => clients.delete(res));
+});
+
 // Define the OCR endpoint
 app.post('/ocr', upload.single('image'), async (req, res) => {
   if (!req.file) {
@@ -42,7 +55,16 @@ app.post('/ocr', upload.single('image'), async (req, res) => {
       req.file.path,
       'eng', // Specify language; you can change or add languages as needed
       {
-        logger: m => console.log(m)  // Optional logger to see progress in the console
+        logger: m => {
+          console.log(m);
+          // Send progress to all connected clients
+          if (m.status === 'recognizing text') {
+            const progress = Math.round(m.progress * 100);
+            clients.forEach(client => 
+              client.write(`data: ${JSON.stringify({ progress })}\n\n`)
+            );
+          }
+        }
       }
     );
 

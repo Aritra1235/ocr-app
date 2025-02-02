@@ -15,6 +15,7 @@ export default function OCRComponent() {
   const [progress, setProgress] = useState(0)
   const [ocrResult, setOcrResult] = useState("")
   const [error, setError] = useState<string | null>(null)
+  const [eventSource, setEventSource] = useState<EventSource | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const dropZoneRef = useRef<HTMLDivElement>(null)
   const { toast } = useToast()
@@ -65,6 +66,15 @@ export default function OCRComponent() {
     setIsProcessing(true)
     setProgress(0)
 
+    // Setup SSE connection
+    const sse = new EventSource('http://localhost:3000/progress');
+    setEventSource(sse);
+
+    sse.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      setProgress(data.progress);
+    };
+
     try {
       const formData = new FormData()
       formData.append("image", file)
@@ -85,7 +95,10 @@ export default function OCRComponent() {
       console.error(err)
     } finally {
       setIsProcessing(false)
-      setProgress(100)
+      if (sse) {
+        sse.close();
+        setEventSource(null);
+      }
     }
   }
 
@@ -103,6 +116,15 @@ export default function OCRComponent() {
       document.removeEventListener("paste", handlePaste)
     }
   }, [handlePaste])
+
+  // Clean up SSE connection on component unmount
+  React.useEffect(() => {
+    return () => {
+      if (eventSource) {
+        eventSource.close();
+      }
+    };
+  }, [eventSource])
 
   return (
     <Card className="w-full max-w-3xl mx-auto">
