@@ -22,7 +22,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <div className="min-h-screen bg-background text-foreground">
             <header className="container mx-auto px-4 py-4 flex justify-between items-center">
-              <h1 className="text-2xl font-bold">OCR App</h1>
+              <h1 className="text-2xl font-bold">OCR</h1>
               <ThemeToggle />
             </header>
             {children}

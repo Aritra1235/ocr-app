@@ -129,7 +129,7 @@ export default function OCRComponent() {
   return (
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-center">OCR Image Processing</CardTitle>
+        <CardTitle className="text-2xl font-bold text-center">Paste/Drop Images</CardTitle>
       </CardHeader>
       <CardContent>
         <div
