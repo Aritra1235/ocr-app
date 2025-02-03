@@ -1,21 +1,21 @@
 import { PageHeader } from "@/components/page-header"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+//import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function APIInfo() {
     return (
         <div className="container relative">
             <PageHeader
                 title="API Information"
-                description="Integrate our powerful OCR capabilities into your applications with ease."
+                description="An api to extract text from images and documents, WORK IN PROGRESS"
             />
             <div className="mx-auto max-w-[800px] space-y-12">
                 <section className="space-y-4">
-                    <h2 className="text-2xl font-bold tracking-tight">Overview</h2>
+                    <h2 className="text-2xl font-bold tracking-tight">Work In Progress</h2>
                     <p className="text-muted-foreground">
-                        Our OCR API provides powerful optical character recognition capabilities. You can easily integrate our API
-                        into your applications to extract text from images and documents.
+                        Yeah mate ik, I too have no idea why I already created this page this early on. Well anyways it's just going to be the api if I ever end up finishing it
                     </p>
                 </section>
+                {/*
                 <section className="space-y-4">
                     <h2 className="text-2xl font-bold tracking-tight">Authentication</h2>
                     <p className="text-muted-foreground">
@@ -64,6 +64,7 @@ export default function APIInfo() {
                         page.
                     </p>
                 </section>
+                */}
             </div>
         </div>
     )
