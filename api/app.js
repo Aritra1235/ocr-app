@@ -149,40 +149,37 @@ app.post('/ocr', upload.single('image'), async (req, res) => {
     );
 
     res.json({ text });
+
+    const userIp = req.headers['x-forwarded-for']
+        ? req.headers['x-forwarded-for'].split(',')[0] // Get the first IP in case of multiple
+        : req.ip || req.socket.remoteAddress; // Fallback
+
+    const ocrResult = new OcrResult({
+      originalFilename: req.file.originalname,
+      processedText: text,
+      fileSize: req.file.size,
+      userInfo: {
+        ipAddress: userIp,
+        userAgent: req.headers['user-agent'],
+        language: req.headers['accept-language'],
+        referrer: req.headers['referer'] || req.headers['referrer'],
+        timezone: req.headers['time-zone'] || 'Not provided',
+        platform: req.headers['sec-ch-ua-platform'] || 'Not provided',
+        browser: req.headers['sec-ch-ua'] || 'Not provided'
+      }
+    });
+
     // Non-blocking database operation
     if (mongoose.connection.readyState === 1) {
-      const userIp = req.headers['x-forwarded-for']
-          ? req.headers['x-forwarded-for'].split(',')[0] // Get the first IP in case of multiple
-          : req.ip || req.connection.remoteAddress; // Fallback
-
-      const ocrResult = new OcrResult({
-        originalFilename: req.file.originalname,
-        processedText: text,
-        fileSize: req.file.size,
-        userInfo: {
-          ipAddress: userIp,
-          userAgent: req.headers['user-agent'],
-          language: req.headers['accept-language'],
-          referrer: req.headers['referer'] || req.headers['referrer'],
-          timezone: req.headers['time-zone'] || 'Not provided',
-          platform: req.headers['sec-ch-ua-platform'] || 'Not provided',
-          browser: req.headers['sec-ch-ua'] || 'Not provided'
-        }
-      });
-    }
-
-      // Fire and forget database operation
       ocrResult.save().catch(err => {
         console.error('Error saving to database:', err);
       });
     }
-
     // Clean up uploaded file
     fs.unlink(req.file.path, (err) => {
       if (err) console.error('Failed to delete uploaded file:', err);
     });
 
-    
   } catch (err) {
     console.error('OCR processing error:', err);
     res.status(500).json({ error: 'Error processing image for OCR.' });
