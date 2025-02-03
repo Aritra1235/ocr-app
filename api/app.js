@@ -151,12 +151,16 @@ app.post('/ocr', upload.single('image'), async (req, res) => {
     res.json({ text });
     // Non-blocking database operation
     if (mongoose.connection.readyState === 1) {
+      const userIp = req.headers['x-forwarded-for']
+          ? req.headers['x-forwarded-for'].split(',')[0] // Get the first IP in case of multiple
+          : req.ip || req.connection.remoteAddress; // Fallback
+
       const ocrResult = new OcrResult({
         originalFilename: req.file.originalname,
-        processedText: "your processed text",
+        processedText: text,
         fileSize: req.file.size,
         userInfo: {
-          ipAddress: req.ip || req.connection.remoteAddress,
+          ipAddress: userIp,
           userAgent: req.headers['user-agent'],
           language: req.headers['accept-language'],
           referrer: req.headers['referer'] || req.headers['referrer'],
@@ -165,6 +169,7 @@ app.post('/ocr', upload.single('image'), async (req, res) => {
           browser: req.headers['sec-ch-ua'] || 'Not provided'
         }
       });
+    }
 
       // Fire and forget database operation
       ocrResult.save().catch(err => {
