@@ -1,14 +1,17 @@
-import Image from "next/image"
+//import Image from "next/image"
 import { PageHeader } from "@/components/page-header"
 import { Card, CardContent } from "@/components/ui/card"
 import { Github, Linkedin, Instagram  } from "lucide-react"
 
 export default function AboutMe() {
     return (
-        <div className="container relative">
-            <PageHeader title="About Me" description="Student, Developer" />
+        <div className="flex flex-col">
+
+            <div className="container mx-auto p-4">
+                <PageHeader title="About Me" description="Student, Developer" />
+            </div>
             <div className="mx-auto max-w-[800px] space-y-12">
-                <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
+                <div className="flex flex-col md:flex-row gap-36 items-center md:items-start">
                     <img
                         src="https://i.ibb.co/B2Xjc4qH/IMG-20170310-060847-Original.jpg"
                         alt="Profile picture"
@@ -22,7 +25,7 @@ export default function AboutMe() {
                             Hello! I'm Aritra
                         </p>
                         <p className="text-muted-foreground">
-                            And thats it
+                            And that's it
                         </p>
                         <p className="text-muted-foreground">
                             Bye Bye

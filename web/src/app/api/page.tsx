@@ -3,18 +3,22 @@ import { PageHeader } from "@/components/page-header"
 
 export default function APIInfo() {
     return (
-        <div className="container relative">
-            <PageHeader
-                title="API Information"
-                description="An api to extract text from images and documents, WORK IN PROGRESS"
-            />
-            <div className="mx-auto max-w-[800px] space-y-12">
-                <section className="space-y-4">
-                    <h2 className="text-2xl font-bold tracking-tight">Work In Progress</h2>
-                    <p className="text-muted-foreground">
-                        Yeah mate ik, I too have no idea why I already created this page this early on. Well anyways it's just going to be the api if I ever end up finishing it
-                    </p>
-                </section>
+        <div className="flex flex-col">
+            <div className="container mx-auto p-4">
+                <PageHeader title="API Information" description="An api to extract text from images and documents, WORK IN PROGRESS" />
+            </div>
+
+            <div className="flex-1 flex items-center justify-center">
+
+                <div className="mx-auto max-w-[800px] space-y-12">
+                    <section className="space-y-4">
+                        <h2 className="text-2xl font-bold tracking-tight">Work In Progress</h2>
+                        <p className="text-muted-foreground">
+                            Yeah mate ik, I too have no idea why I already created this page this early on. Well anyways it's just going to be the api if I ever end up finishing it
+                        </p>
+                    </section>
+                </div>
+
                 {/*
                 <section className="space-y-4">
                     <h2 className="text-2xl font-bold tracking-tight">Authentication</h2>

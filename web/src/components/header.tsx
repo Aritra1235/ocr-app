@@ -19,13 +19,13 @@ export function Header() {
 
     return (
         <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-16 max-w items-center justify-between px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center">
-                    <Link className="flex items-center space-x-2" href="/">
+            <div className="w-full flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+                <div className="flex-none">
+                    <Link className="flex items-center" href="/">
                         <span className="text-xl font-bold">OCR</span>
                     </Link>
                 </div>
-                <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+                <nav className="hidden md:flex flex-1 justify-center gap-8 text-sm font-medium">
                     {navItems.map((item) => (
                         <Link
                             key={item.href}
@@ -39,7 +39,7 @@ export function Header() {
                     ))}
                 </nav>
                 <MobileNav />
-                <div className="flex items-center">
+                <div className="flex-none ml-4">
                     <Button
                         variant="ghost"
                         size="icon"
@@ -55,4 +55,3 @@ export function Header() {
         </header>
     )
 }
-

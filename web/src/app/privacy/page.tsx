@@ -70,16 +70,24 @@ export default function PrivacyPolicy() {
     ]
 
     return (
-        <div className="container relative">
-            <PageHeader title="Privacy Policy" description="" />
-            <div className="mx-auto max-w-[800px] space-y-12">
-                {sections.map((section, index) => (
-                    <section key={index} className="space-y-3">
-                        <h2 className="text-2xl font-bold tracking-tight">{section.title}</h2>
-                        <p className="text-muted-foreground">{section.content}</p>
-                    </section>
-                ))}
+        <div className="min-h-screen flex flex-col">
+            {/* Header at the top */}
+            <div className="container mx-auto p-4">
+                <PageHeader title="Privacy Policy" description="" />
+            </div>
+
+            {/* Centered content */}
+            <div className="flex-1 flex items-center justify-center">
+                <div className="mx-auto max-w-[800px] space-y-12">
+                    {sections.map((section, index) => (
+                        <section key={index} className="space-y-3">
+                            <h2 className="text-2xl font-bold tracking-tight">{section.title}</h2>
+                            <p className="text-muted-foreground">{section.content}</p>
+                        </section>
+                    ))}
+                </div>
             </div>
         </div>
+
     )
 }
