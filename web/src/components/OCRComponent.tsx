@@ -7,6 +7,11 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Progress } from "@/components/ui/progress"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
+import dotenv from 'dotenv';
+import './OCRComponent.css';
+
+dotenv.config()
+
 
 export default function OCRComponent() {
   const [file, setFile] = useState<File | null>(null)
@@ -60,14 +65,15 @@ export default function OCRComponent() {
     }
   }
 
+  // Replace hardcoded URLs with environment variables
   const processImage = async () => {
-    if (!file) return
+    if (!file) return;
 
-    setIsProcessing(true)
-    setProgress(0)
+    setIsProcessing(true);
+    setProgress(0);
 
     // Setup SSE connection
-    const sse = new EventSource('http://localhost:3000/progress');
+    const sse = new EventSource(`${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_PROGRESS_ENDPOINT}`);
     setEventSource(sse);
 
     sse.onmessage = (event) => {
@@ -76,38 +82,47 @@ export default function OCRComponent() {
     };
 
     try {
-      const formData = new FormData()
-      formData.append("image", file)
+      const formData = new FormData();
+      formData.append("image", file);
 
-      const response = await fetch("http://localhost:3000/ocr", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_OCR_ENDPOINT}`, {
         method: "POST",
         body: formData,
-      })
+      });
 
       if (!response.ok) {
-        throw new Error("OCR processing failed")
+        throw new Error("OCR processing failed");
       }
 
-      const result = await response.json()
-      setOcrResult(result.text)
+      const result = await response.json();
+      setOcrResult(result.text);
     } catch (err) {
-      setError("An error occurred during OCR processing.")
-      console.error(err)
+      setError("An error occurred during OCR processing.");
+      console.error(err);
     } finally {
-      setIsProcessing(false)
+      setIsProcessing(false);
       if (sse) {
         sse.close();
         setEventSource(null);
       }
     }
-  }
+  };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(ocrResult)
-    toast({
-      title: "Copied to clipboard",
-      description: "The OCR result has been copied to your clipboard.",
-    })
+    navigator.clipboard.writeText(ocrResult).then(() =>
+        toast({
+          title: "Copied to clipboard",
+          description: "The OCR result has been copied to your clipboard.",
+          open: true, // Ensure the toast opens
+        })
+    ).catch(error => {
+      console.error("Failed to copy:", error);
+      toast({
+        title: "Copy failed",
+        description: "Failed to copy the OCR result to your clipboard.",
+        open: true, // Ensure the error toast opens
+      });
+    });
   }
 
   React.useEffect(() => {

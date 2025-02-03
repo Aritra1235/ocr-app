@@ -1,0 +1,32 @@
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #181818;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3a3a3a;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #505050;
+}
+
+/* Resize Handle Styling */
+textarea {
+    overflow: auto; /* Ensures scrollbar styling applies */
+    resize: none;
+}
+
+textarea::-webkit-resizer {
+    background: #3a3a3a; /* Matches scrollbar thumb */
+    border-radius: 4px;
+}
+
+textarea:hover::-webkit-resizer {
+    background: #505050; /* Lighter on hover for visibility */
+}
