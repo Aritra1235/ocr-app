@@ -20,7 +20,7 @@ export function Header() {
     return (
         <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="w-full flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
-                <div className="flex-none">
+                <div className="flex-none ml-16">
                     <Link className="flex items-center" href="/">
                         <span className="text-xl font-bold">OCR</span>
                     </Link>
@@ -39,7 +39,7 @@ export function Header() {
                     ))}
                 </nav>
                 <MobileNav />
-                <div className="flex-none ml-4">
+                <div className="flex-none ml-4 mr-16">
                     <Button
                         variant="ghost"
                         size="icon"
