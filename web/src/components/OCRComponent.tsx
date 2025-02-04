@@ -205,7 +205,7 @@ export default function OCRComponent() {
       </CardContent>
       <CardFooter>
         <p className="hint text-sm text-gray-500 dark:text-gray-400 text-center w-full">
-          Supported image formats: PNG, JPG, GIF. Max file size: 5MB
+          Supported image formats: PNG, JPG, GIF. Max file size: 10MB
         </p>
       </CardFooter>
     </Card>

@@ -5,7 +5,7 @@ export default function APIInfo() {
     return (
         <div className="flex flex-col">
             <div className="container mx-auto p-4">
-                <PageHeader title="API Information" description="An api to extract text from images and documents, WORK IN PROGRESS" />
+                <PageHeader title="API Information" description="" />
             </div>
 
             <div className="flex-1 flex items-center justify-center">

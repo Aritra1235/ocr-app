@@ -42,7 +42,7 @@ export default function PrivacyPolicy() {
             content: (
                 <>
                     All code is open source at{" "}
-                    <a  href="https://github.com/your-repo" target="_blank" rel="noopener noreferrer" className="underline">
+                    <a  href="https://github.com/Aritra1235/ocr-app" target="_blank" rel="noopener noreferrer" className="underline">
                         GitHub
                     </a>
                     . What you see there is exactly what's running live. Feel free to check I'm not hiding anything - the database schema and deletion scripts are all visible.

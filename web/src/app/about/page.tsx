@@ -8,10 +8,10 @@ export default function AboutMe() {
         <div className="flex flex-col">
 
             <div className="container mx-auto p-4">
-                <PageHeader title="About Me" description="Student, Developer" />
+                <PageHeader title="About Me" description="" />
             </div>
             <div className="mx-auto max-w-[800px] space-y-12">
-                <div className="flex flex-col md:flex-row gap-36 items-center md:items-start">
+                <div className="flex flex-col md:flex-row gap-12 items-center md:items-start">
                     <img
                         src="https://i.ibb.co/B2Xjc4qH/IMG-20170310-060847-Original.jpg"
                         alt="Profile picture"
@@ -22,7 +22,7 @@ export default function AboutMe() {
                     <div className="space-y-4">
                         <h2 className="text-2xl font-bold tracking-tight">Aritra</h2>
                         <p className="text-muted-foreground">
-                            Hello! I'm Aritra
+                            Hello! I'm Aritra, I'm a computer science student.
                         </p>
                         <p className="text-muted-foreground">
                             And that's it

@@ -117,7 +117,7 @@ if (!fs.existsSync(uploadDir)) {
 }
 
 // SSE endpoint
-app.get('/progress', (req, res) => {
+app.get('/v1/progress', (req, res) => {
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
@@ -126,7 +126,7 @@ app.get('/progress', (req, res) => {
 });
 
 // OCR endpoint
-app.post('/ocr', upload.single('image'), async (req, res) => {
+app.post('/v1/ocr', upload.single('image'), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: 'No image file provided.' });
   }

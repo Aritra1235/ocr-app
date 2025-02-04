@@ -21,7 +21,7 @@ export function MobileNav() {
         {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
     {isOpen && (
-        <div className="absolute left-0 right-0 top-16 bg-background border-b border-border/40 p-4">
+        <div className="absolute left-0 right-0 top-16 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 p-4">
         <nav className="flex flex-col space-y-4">
             {navItems.map((item) => (
                     <Link
