@@ -54,3 +54,6 @@ temp/
 # Optional
 *.tsbuildinfo
 .eslintcache
+
+
+easyocr_script.py
